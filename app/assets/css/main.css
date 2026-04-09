@@ -10,16 +10,189 @@
 
 :root {
   --ui-container: var(--container-4xl);
+  --neon-cyan:   #00ffff;
+  --neon-purple: #7b2fff;
+  --neon-green:  #00ff88;
+  --neon-pink:   #ff007f;
 
   ::selection {
-    color: #282a30;
-    background-color: #c8c8c8;
+    color: #00ffff;
+    background-color: #7b2fff55;
   }
 }
 
-.dark {
-  ::selection {
-    color: #ffffff;
-    background-color: #474747;
+/* ═══════════════════════════════════════════════════════════
+   Gamer / Cyberpunk  —  Global Foundation
+   ═══════════════════════════════════════════════════════════ */
+html, body {
+  background-color: #06060f;
+  color-scheme: dark;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── CRT scanline overlay ── */
+body::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 255, 0.015) 2px,
+    rgba(0, 255, 255, 0.015) 4px
+  );
+  animation: scanlines 10s linear infinite;
+}
+
+@keyframes scanlines {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 200px; }
+}
+
+/* ── Subtle CRT vignette ── */
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.55) 100%);
+}
+
+/* ── Neon glow on headings ── */
+h1, h2, h3 {
+  text-shadow:
+    0 0 6px rgba(0, 255, 255, 0.6),
+    0 0 18px rgba(0, 255, 255, 0.3),
+    0 0 40px rgba(0, 255, 255, 0.12);
+}
+
+/* ── Glowing links & buttons on hover ── */
+a:hover,
+button:hover {
+  filter: drop-shadow(0 0 7px rgba(0, 255, 255, 0.75));
+  transition: filter 0.2s ease;
+}
+
+/* ── Glass-morphism cards ── */
+.glass-card {
+  background: rgba(6, 6, 20, 0.65);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 255, 0.18);
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.07),
+    0 0 60px rgba(123, 47, 255, 0.05),
+    inset 0 0 30px rgba(123, 47, 255, 0.04);
+}
+
+/* ── Neon border pulse ── */
+@keyframes neonPulse {
+  0%, 100% { box-shadow: 0 0 6px #00ffff55, 0 0 18px #00ffff22, 0 0 40px #7b2fff11; }
+  50%       { box-shadow: 0 0 14px #00ffffaa, 0 0 40px #00ffff44, 0 0 80px #7b2fff22; }
+}
+.neon-pulse { animation: neonPulse 3s ease-in-out infinite; }
+
+/* ── Neon text flicker ── */
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 6px #00ffff,
+      0 0 20px #00ffff,
+      0 0 40px #00ffff;
   }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+.neon-flicker { animation: neonFlicker 5s infinite; }
+
+/* ── Corner bracket decorations ── */
+.corner-brackets {
+  position: relative;
+}
+.corner-brackets::before,
+.corner-brackets::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--neon-cyan);
+  border-style: solid;
+  opacity: 0.6;
+}
+.corner-brackets::before {
+  top: -2px; left: -2px;
+  border-width: 2px 0 0 2px;
+}
+.corner-brackets::after {
+  bottom: -2px; right: -2px;
+  border-width: 0 2px 2px 0;
+}
+
+/* ── HUD data-strip text style ── */
+.hud-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  opacity: 0.55;
+}
+
+/* ── Animated neon underline ── */
+@keyframes neonUnderlineSlide {
+  0%   { width: 0; opacity: 0; }
+  50%  { opacity: 1; }
+  100% { width: 100%; opacity: 0.8; }
+}
+
+/* ── Gamer scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #06060f; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00ffff 0%, #7b2fff 100%);
+  border-radius: 3px;
+  box-shadow: 0 0 8px #00ffff88;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7b2fff 0%, #00ffff 100%);
+}
+
+/* ── Glitch animation for accent elements ── */
+@keyframes glitch {
+  0%   { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 0); }
+  20%  { clip-path: inset(92% 0 1%  0); transform: translate(2px, 0);  }
+  40%  { clip-path: inset(43% 0 1%  0); transform: translate(1px, 0);  }
+  60%  { clip-path: inset(25% 0 58% 0); transform: translate(-1px, 0); }
+  80%  { clip-path: inset(54% 0 7%  0); transform: translate(2px, 0);  }
+  100% { clip-path: inset(58% 0 43% 0); transform: translate(-2px, 0); }
+}
+
+/* ── Override Nuxt UI for dark gamer look ── */
+[data-theme='dark'],
+.dark {
+  --ui-bg: #06060f;
+  --ui-bg-muted: #0d0d1e;
+  --ui-border: rgba(0, 255, 255, 0.1);
+  --ui-border-muted: rgba(123, 47, 255, 0.08);
+
+  ::selection {
+    color: #00ffff;
+    background-color: #7b2fff55;
+  }
+}
+
+/* ── Card & panel neon border on hover ── */
+[class*='card']:hover,
+[class*='panel']:hover {
+  border-color: rgba(0, 255, 255, 0.22) !important;
+  box-shadow: 0 0 18px rgba(0,255,255,0.08), 0 0 40px rgba(123,47,255,0.06) !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }

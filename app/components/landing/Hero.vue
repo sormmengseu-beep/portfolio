@@ -156,6 +156,13 @@ defineProps<{
       </div>
     </template>
 
+    <!-- 3D interactive cat ─────────────────────────── -->
+    <ClientOnly>
+      <div class="mx-auto my-6 rounded-2xl overflow-hidden" style="width: 320px; height: 320px;">
+        <ThreeDPet />
+      </div>
+    </ClientOnly>
+
     <UMarquee
       pause-on-hover
       class="py-2 -mx-8 sm:-mx-12 lg:-mx-16 [--duration:40s]"
